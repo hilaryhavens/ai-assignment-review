@@ -1,0 +1,10 @@
+{
+  "name": "ai-assignment-review",
+  "version": "0.1.0",
+  "description": "AI-Proof My Assignment — IDEA V7 assignment review tool",
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  },
+  "private": true
+}
