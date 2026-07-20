@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI-Proof My Assignment · IDEA V7 Review</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>AI-Proof My Assignment</h1>
+    <p>Assess an assignment's AI vulnerabilities and get IDEA&nbsp;V7 redesign options · University of Tennessee</p>
+  </div>
+</header>
+<div class="ut-checker" aria-hidden="true"></div>
+
+<main>
+  <div class="tabs" role="tablist" aria-label="Steps">
+    <button id="tab-generate" role="tab" aria-selected="true" aria-controls="panel-generate">1 · Generate prompt</button>
+    <button id="tab-format" role="tab" aria-selected="false" aria-controls="panel-format">2 · Format review</button>
+    <button id="tab-library" role="tab" aria-selected="false" aria-controls="panel-library">Library</button>
+  </div>
+
+  <!-- GENERATE -->
+  <section id="panel-generate" class="panel active" role="tabpanel" aria-labelledby="tab-generate">
+    <label for="assignment-text">Assignment text</label>
+    <textarea id="assignment-text" placeholder="Paste your assignment here, or drop a .docx / .pdf below…"></textarea>
+    <div id="drop-zone" class="drop-zone">
+      Drop a <strong>.docx</strong> or <strong>.pdf</strong> here, or
+      <label for="file-input" style="display:inline;color:#a4400a;cursor:pointer;text-decoration:underline;font-weight:600;margin:0">choose a file</label>.
+      <input id="file-input" type="file" accept=".docx,.pdf" hidden>
+    </div>
+    <p id="extract-status" class="note" aria-live="polite"></p>
+
+    <div class="grid2">
+      <div>
+        <label for="ctx-course">Course &amp; level <span class="note">(optional)</span></label>
+        <input id="ctx-course" type="text" placeholder="e.g. English 412, upper-division undergrad">
+      </div>
+      <div>
+        <label for="ctx-discipline">Discipline / field <span class="note">(optional)</span></label>
+        <input id="ctx-discipline" type="text" placeholder="e.g. Literature">
+      </div>
+    </div>
+    <label for="ctx-goals">Specific learning goals <span class="note">(optional)</span></label>
+    <input id="ctx-goals" type="text" placeholder="e.g. TEI encoding, editorial judgment">
+
+    <div class="grid2">
+      <div>
+        <label for="entry-title">Save as <span class="note">(title for your library)</span></label>
+        <input id="entry-title" type="text" placeholder="Auto-filled from the first line">
+      </div>
+      <div style="align-self:end">
+        <label class="note" style="font-weight:400"><input id="no-save" type="checkbox"> Don't save this one to my library</label>
+      </div>
+    </div>
+
+    <div class="row"><button id="build-btn" class="btn">Build my review prompt</button></div>
+
+    <label for="prompt-output">Your IDEA V7 prompt — copy this into Claude or ChatGPT</label>
+    <textarea id="prompt-output" readonly placeholder="Your generated prompt will appear here."></textarea>
+    <div class="row">
+      <button id="copy-prompt-btn" class="btn secondary">Copy prompt</button>
+      <span id="copy-status" class="note">Paste it into <strong>Claude</strong> or <strong>ChatGPT</strong>, run it, then bring the answer to the <em>Format review</em> tab.</span>
+    </div>
+  </section>
+
+  <!-- FORMAT -->
+  <section id="panel-format" class="panel" role="tabpanel" aria-labelledby="tab-format">
+    <label for="review-input">Paste the AI's review here</label>
+    <textarea id="review-input" placeholder="Paste the full response the AI gave you…"></textarea>
+    <div class="row">
+      <button id="format-btn" class="btn">Format report</button>
+      <label class="note" style="font-weight:400"><input id="link-entry" type="checkbox" checked> Attach this review to the most recent library entry</label>
+    </div>
+    <div id="report"></div>
+    <div class="row no-print"><button id="print-btn" class="btn secondary">Print / Save as PDF</button></div>
+  </section>
+
+  <!-- LIBRARY -->
+  <section id="panel-library" class="panel" role="tabpanel" aria-labelledby="tab-library">
+    <div class="row">
+      <input id="lib-search" type="text" placeholder="Search title or text…" style="flex:1;min-width:12rem">
+      <select id="lib-filter-discipline" aria-label="Filter by discipline"><option value="">All disciplines</option></select>
+      <select id="lib-sort" aria-label="Sort by">
+        <option value="date">Sort: Date</option>
+        <option value="title">Sort: Title</option>
+        <option value="discipline">Sort: Discipline</option>
+        <option value="course">Sort: Course</option>
+        <option value="robustness_after">Sort: Robustness (after)</option>
+      </select>
+      <select id="lib-sort-dir" aria-label="Sort direction">
+        <option value="desc">Descending</option>
+        <option value="asc">Ascending</option>
+      </select>
+    </div>
+    <table id="lib-table">
+      <thead><tr><th>Date</th><th>Title</th><th>Discipline</th><th>Course</th><th>Robustness</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="row">
+      <button id="export-btn" class="btn secondary">Export library (JSON)</button>
+      <label for="import-input" class="btn secondary" style="cursor:pointer;margin:0">Import library…</label>
+      <input id="import-input" type="file" accept=".json,application/json" hidden>
+      <span id="lib-status" class="note"></span>
+    </div>
+  </section>
+
+  <details>
+    <summary>About the IDEA V7 framework</summary>
+    <p class="note">This tool builds a prompt that asks an AI to analyze your assignment across three layers — Cognitive Demands, Student Cognitive Engagement, and AI Robustness — then propose Low / Medium / High-effort redesigns and a before/after learning-robustness score. Nothing you type is uploaded: your library is saved only in this browser. Scanned (image-only) PDFs have no extractable text — paste the text instead.</p>
+  </details>
+</main>
+
+<script src="vendor/mammoth.browser.min.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
